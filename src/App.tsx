@@ -12,10 +12,14 @@ const App = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
   const [err, setErr] = useState('');
 
+  const controller = new AbortController()
+
   useEffect(() => {
-    axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts')
+    axios.get<Posts[]>('https://jsonplaceholder.typicode.com/posts', { signal: controller.signal })
       .then(res => setPosts(res.data))
       .catch(err => setErr(err.message));
+
+    return () => controller.abort();
   }, [])
 
   return (
