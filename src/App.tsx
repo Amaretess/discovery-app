@@ -1,37 +1,34 @@
-import axios, { CanceledError } from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-interface Post {
+interface Users {
   id: number;
-  title: string;
-  body: string;
+  name: string;
 }
 
 const App = () => {
 
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [users, setUsers] = useState<Users[]>([]);
   const [err, setErr] = useState('');
 
   useEffect(() => {
 
     const controller = new AbortController();
 
-    axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts', { signal: controller.signal })
-      .then(res => setPosts(res.data))
-      .catch(err => {
-        if (err instanceof CanceledError) return;
-        setErr(err.message)
-      })
+    axios.get<Users[]>('https://jsonplaceholder.typicode.com/users')
+      .then(res => setUsers(res.data))
+      .catch(err => setErr(err.message));
+
     return () => controller.abort();
+
   }, [])
 
   return (
     <>
       {err && <p className="text-danger" >{err}</p>}
       <ul>
-        {posts.map(post => <li key={post.id}>{post.title}</li>)}
+        {users.map(user => <li className="text-danger" key={user.id} >{user.name}</li>)}
       </ul>
-
     </>
   )
 }
