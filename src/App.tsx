@@ -10,7 +10,7 @@ const App = () => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [err, setErr] = useState('');
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
 
@@ -35,10 +35,25 @@ const App = () => {
       })
   }
 
+  const addUser = () => {
+    const originalUsers = { ...users }
+    const newUser = { id: 1, name: 'Ash' }
+    setUsers([newUser, ...users])
+
+    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
+      .catch(err => {
+        setErr(err.message);
+        setUsers(originalUsers)
+      })
+  }
+
+
+
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
       {err && <p className="text-danger" >{err}</p>}
+      <button onClick={() => addUser()} >Add</button>
       <ul className='list-group' >
         {users.map(user => <li className='list-group-item d-flex justify-content-between' key={user.id} >
           {user.name}
