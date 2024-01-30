@@ -24,12 +24,19 @@ const App = () => {
       .catch(err => setErr(err.message));
   }, [])
 
+  const deleteUser = (user: User) => {
+    setUsers(users.filter(u => u.id !== user.id))
+  }
+
   return (
     <>
-      {isLoading && <p className="text-danger"></p>}
+      {isLoading && <div className="spinner-border"></div>}
       {err && <p className="text-danger" >{err}</p>}
-      <ul>
-        {users.map(user => <li key={user.id} >{user.name}</li>)}
+      <ul className='list-group' >
+        {users.map(user => <li className='list-group-item d-flex justify-content-between' key={user.id} >
+          {user.name}
+          <button onClick={() => deleteUser(user)} className="btn btn-outline-danger" >Delete</button>
+        </li>)}
       </ul>
     </>
   )
