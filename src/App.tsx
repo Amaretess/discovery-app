@@ -19,6 +19,7 @@ const App = () => {
 
   return (
     <>
+      {err && <p className="text-danger" >{err}</p>}
       <ul>
         {users.map(user => <li key={user.id} >{user.name}</li>)}
       </ul>
