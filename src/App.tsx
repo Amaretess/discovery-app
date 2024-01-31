@@ -57,6 +57,11 @@ const App = () => {
       })
   };
 
+  const updateUser = (user: User) => {
+    const updatedUser = { ...user, name: user.name + '!' };
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
+  }
+
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
@@ -67,7 +72,7 @@ const App = () => {
           <li className="list-group-item d-flex justify-content-between" key={user.id} >
             {user.name}
             <div>
-              <button className="btn btn-outline-secondary mx-1"  >Update</button>
+              <button className="btn btn-outline-secondary mx-1" onClick={() => updateUser(user)} >Update</button>
               <button onClick={() => deleteUser(user)} className="btn btn-outline-danger">Delete</button>
 
             </div>
