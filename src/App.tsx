@@ -66,8 +66,11 @@ const App = () => {
         {users.map((user) => (
           <li className="list-group-item d-flex justify-content-between" key={user.id} >
             {user.name}
-            <button className="btn btn-outline-secondary" >Update</button>
-            <button onClick={() => deleteUser(user)} className="btn btn-outline-danger">Delete</button>
+            <div>
+              <button className="btn btn-outline-secondary mx-1"  >Update</button>
+              <button onClick={() => deleteUser(user)} className="btn btn-outline-danger">Delete</button>
+
+            </div>
           </li>
         ))}
       </ul>
