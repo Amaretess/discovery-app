@@ -50,6 +50,7 @@ const App = () => {
     setUsers([newUser, ...users]);
 
     axios.post('https://jsonplaceholder.typicode.com/users/' + newUser)
+      .then(res => setUsers([res.data, ...users]))
       .catch(err => {
         setErr(err);
         setUsers(originalUsers)
