@@ -46,13 +46,13 @@ const App = () => {
 
   const addUser = () => {
     const originalUsers = [...users];
-    const newUser = { id: 1, name: 'Ash' };
+    const newUser = { id: 0, name: 'Ash' };
     setUsers([newUser, ...users]);
 
-    axios.post('https://jsonplaceholder.typicode.com/users/' + newUser)
-      .then(res => setUsers([res.data, ...users]))
+    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch(err => {
-        setErr(err);
+        setErr(err.message);
         setUsers(originalUsers)
       })
   };
@@ -66,6 +66,7 @@ const App = () => {
         {users.map((user) => (
           <li className="list-group-item d-flex justify-content-between" key={user.id} >
             {user.name}
+            <button className="btn btn-outline-secondary" >Update</button>
             <button onClick={() => deleteUser(user)} className="btn btn-outline-danger">Delete</button>
           </li>
         ))}
