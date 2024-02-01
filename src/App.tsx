@@ -28,6 +28,8 @@ const App = () => {
         setError(err.message)
         setLoading(false);
       });
+
+    return () => controller.abort()
   }, []) // DON'T FORGET THE DEPENDENCY
 
   const addUser = () => {
