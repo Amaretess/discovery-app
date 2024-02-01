@@ -1,4 +1,4 @@
-import axios, { CanceledError } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -9,13 +9,12 @@ interface User {
 
 const App = () => {
 
-
   const [users, setUsers] = useState<User[]>([]);
-  const [err, setErr] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(''); // the data is gonna be a string (message)
+  const [isLoading, setLoading] = useState(false) // data is a boolean
+
 
   useEffect(() => {
-
     const controller = new AbortController();
 
     setLoading(true);
@@ -26,12 +25,16 @@ const App = () => {
         setLoading(false);
       })
       .catch(err => {
-        if (err instanceof CanceledError) return;
-        setErr(err.message)
+        setError(err.message)
+        setLoading(false);
       });
+  }, []) // DON'T FORGET THE DEPENDENCY
 
-    return () => controller.abort();
-  }, []);
+  const addUser = () => {
+    const newUser = { id: 0, name: 'Ash' };
+    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
+      .then(res => setUsers([res.data, ...users]))
+  }
 
   const deleteUser = (user: User) => {
     const originalUsers = [...users]
@@ -39,46 +42,25 @@ const App = () => {
 
     axios.delete('https://jsonplaceholder.typicode.com/users/' + user.id)
       .catch(err => {
-        setErr(err.message)
-        setUsers(originalUsers);
-      })
-  }
-
-  const addUser = () => {
-    const originalUsers = [...users];
-    const newUser = { id: 0, name: 'Ash' };
-    setUsers([newUser, ...users]);
-
-    axios.post('https://jsonplaceholder.typicode.com/users', newUser)
-      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
-      .catch(err => {
-        setErr(err.message);
+        setError(err.message)
         setUsers(originalUsers)
       })
-  };
-
-  const updateUser = (user: User) => {
-    const updatedUser = { ...user, name: user.name + '!' };
-    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
   }
+
 
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
-      {err && <p className="text-danger" >{err}</p>}
-      <button onClick={() => addUser()} className="btn btn-outline-primary" >Add</button>
+      {error && <p className="text-danger" >{error}</p>}
+      <button className="btn btn-primary" onClick={() => addUser()} >Add User</button>
       <ul className="list-group" >
-        {users.map((user) => (
+        {users.map(user =>
           <li className="list-group-item d-flex justify-content-between" key={user.id} >
             {user.name}
-            <div>
-              <button className="btn btn-outline-secondary mx-1" onClick={() => updateUser(user)} >Update</button>
-              <button onClick={() => deleteUser(user)} className="btn btn-outline-danger">Delete</button>
-
-            </div>
-          </li>
-        ))}
+            <button className='btn btn-outline-danger' onClick={() => deleteUser(user)} >Delete</button>
+          </li>)}
       </ul>
+
     </>
   )
 }
