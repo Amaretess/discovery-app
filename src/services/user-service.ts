@@ -10,14 +10,18 @@ class UserService {
     getAllUsers() {
         const controller = new AbortController();
         const request = apiClient.get<User[]>('/users', { signal: controller.signal });
-        return { request, cancel: () => controller.abort() }
+        return { request, cancel: () => controller.abort() };
     }
     deleteUser(id: number) {
-        return apiClient.delete('/users/' + id)
+        return apiClient.delete('/users/' + id);
     }
     addUser(user: User) {
         apiClient
-            return apiClient.post('/users', user)
+            return apiClient.post('/users', user);
+    }
+    updateUser(user: User) {
+        apiClient
+            return apiClient.patch('/users/' + user.id, user);
     }
 }
 
