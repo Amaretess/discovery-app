@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react";
 import apiClient, { CanceledError } from "./services/api-client";
-import UserService, { User } from "./services/user-service";
+import userService, { User } from "./services/user-service";
 
 
 const App = () => {
 
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState(''); // the data is gonna be a string (message)
-  const [isLoading, setLoading] = useState(false) // data is a boolean
+  const [isLoading, setLoading] = useState(false); // data is a boolean
 
 
   useEffect(() => {
     setLoading(true);
 
-    UserService
-      .getAllUsers()
-      .then(res => {
-        setUsers(res.data)
-        setLoading(false);
-      })
+    const { cancel, request } = userService.getAllUsers()
+    request.then(res => {
+      setUsers(res.data)
+      setLoading(false);
+    })
       .catch(err => {
         if (err instanceof CanceledError) return;
         setError(err.message)
         setLoading(false);
       });
 
-    return () => controller.abort()
+    return () => cancel();
   }, []) // DON'T FORGET THE DEPENDENCY
 
   const addUser = () => {
