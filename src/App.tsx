@@ -1,10 +1,8 @@
-import axios, { CanceledError } from "axios";
-import { useEffect, useState } from "react"
+import { CanceledError } from "axios";
+import userService from "./services/user-service";
+import { useEffect, useState } from "react";
+import { User } from "./services/user-service";
 
-interface User {
-  id: number;
-  name: string;
-}
 
 const App = () => {
 
@@ -15,22 +13,20 @@ const App = () => {
 
   useEffect(() => {
 
-    const controller = new AbortController();
-
     setLoading(true);
 
-    axios.get<User[]>('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
-      .then(res => {
-        setUsers(res.data)
-        setLoading(false);
-      })
+    const { cancel, request } = userService.getAllUsers()
+    request.then(res => {
+      setUsers(res.data)
+      setLoading(false);
+    })
       .catch(err => {
         if (err instanceof CanceledError) return;
         setError(err.message)
         setLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel();
   }, [])
 
   return (
