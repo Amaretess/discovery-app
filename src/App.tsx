@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -25,6 +25,7 @@ const App = () => {
         setLoading(false);
       })
       .catch(err => {
+        if (err instanceof CanceledError) return;
         setError(err.message)
         setLoading(false);
       });
@@ -49,6 +50,17 @@ const App = () => {
       })
   }
 
+  const updateUser = (user: User) => {
+    const originalUsers = [...users]
+    const updatedUser = { ...user, name: user.name + '!' };
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u));
+    axios.patch('https://jsonplaceholder.typicode.com/users/' + user.id, updatedUser)
+      .catch(err => {
+        setError(err.message);
+        setUsers(originalUsers)
+      })
+  }
+
 
   return (
     <>
@@ -59,7 +71,11 @@ const App = () => {
         {users.map(user =>
           <li className="list-group-item d-flex justify-content-between" key={user.id} >
             {user.name}
-            <button className='btn btn-outline-danger' onClick={() => deleteUser(user)} >Delete</button>
+            <div className="">
+              <button className="btn btn-outline-secondary mx-1" onClick={() => updateUser(user)} >Update</button>
+              <button className='btn btn-outline-danger' onClick={() => deleteUser(user)} >Delete</button>
+
+            </div>
           </li>)}
       </ul>
 
