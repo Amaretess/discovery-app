@@ -1,10 +1,6 @@
-import apiClient, { CanceledError } from "./services/api-client";
 import { useEffect, useState } from "react";
-
-interface User {
-  id: number;
-  name: string;
-}
+import apiClient, { CanceledError } from "./services/api-client";
+import UserService, { User } from "./services/user-service";
 
 
 const App = () => {
@@ -15,12 +11,10 @@ const App = () => {
 
 
   useEffect(() => {
-    const controller = new AbortController();
-
     setLoading(true);
 
-    apiClient
-      .get<User[]>('/users', { signal: controller.signal })
+    UserService
+      .getAllUsers()
       .then(res => {
         setUsers(res.data)
         setLoading(false);
