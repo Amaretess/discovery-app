@@ -28,18 +28,21 @@ const App = () => {
   }, []) // DON'T FORGET THE DEPENDENCY
 
   const addUser = () => {
+    const originalUsers = [...users]
     const newUser = { id: 0, name: 'Ash' };
-    apiClient
-      .post('/users', newUser)
-      .then(res => setUsers([res.data, ...users]))
+    userService.addUser(newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+      .catch(err => {
+        setError(err.message);
+        setUsers(originalUsers);
+      })
   }
 
   const deleteUser = (user: User) => {
     const originalUsers = [...users]
     setUsers(users.filter(u => u.id !== user.id))
 
-    apiClient
-      .delete('/users/' + user.id)
+    userService.deleteUser(user.id)
       .catch(err => {
         setError(err.message)
         setUsers(originalUsers)
