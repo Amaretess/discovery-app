@@ -20,7 +20,7 @@ const App = () => {
     setLoading(true);
 
     apiClient
-      .get<User[]>('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
+      .get<User[]>('/users', { signal: controller.signal })
       .then(res => {
         setUsers(res.data)
         setLoading(false);
