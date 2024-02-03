@@ -1,11 +1,8 @@
-import axios from 'axios';
 import apiClient from './services/api-client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { User } from './services/api-services';
+import { CanceledError } from 'axios';
 
-interface User {
-  id: number;
-  name: string;
-}
 
 const App = () => {
 
@@ -21,12 +18,13 @@ const App = () => {
     setLoading(true);
 
     apiClient
-      .get('/users')
+      .get<User[]>('/users', { signal: controller.signal })
       .then(({ data: allUsers }) => {
         setUsers(allUsers);
         setLoading(false);
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         setError(err.message)
       })
     controller.abort();
