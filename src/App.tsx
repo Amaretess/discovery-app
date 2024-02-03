@@ -11,6 +11,10 @@ const App = () => {
 
   useEffect(() => {
     apiClient
+      .get('/users')
+      .then(({ data: savedUser }) => {
+        setUsers(savedUser)
+      })
   })
 
   return (
