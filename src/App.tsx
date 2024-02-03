@@ -30,7 +30,7 @@ const App = () => {
         setError(err.message)
       })
     controller.abort();
-  })
+  }, [])
 
   return (
     <>
