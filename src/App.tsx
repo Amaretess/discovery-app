@@ -1,3 +1,5 @@
+import axios from 'axios';
+import apiClient from './services/api-client';
 import React, { useEffect, useState } from 'react'
 
 const App = () => {
@@ -8,7 +10,7 @@ const App = () => {
 
 
   useEffect(() => {
-
+    apiClient
   })
 
   return (
