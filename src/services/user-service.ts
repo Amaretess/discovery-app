@@ -2,14 +2,12 @@ import apiClient from "./api-client";
 
 export interface User {
     id: number;
-    name: string
+    name: string;
 }
-
 class UserService {
     getAllUsers() {
-        const controller = new AbortController();
-        return apiClient.get<User[]>('/users', { signal: controller.signal })
+        return apiClient.get<User[]>('/users')
     }
 }
 
-export default new UserService();
+export default UserService;
