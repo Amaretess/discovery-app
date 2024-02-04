@@ -12,7 +12,9 @@ const App = () => {
       .request.then(({ data: allUsers }) => {
         setUsers(allUsers)
       })
-      .
+      .catch((err) => {
+        setError(err)
+      })
   }, [])
 
   return (
