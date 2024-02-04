@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import userService, { User } from './services/user-service';
+import { CanceledError } from 'axios';
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
       setLoading(false);
     })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         // haha i solved my bug on accident
         setError(err.message)
       })
