@@ -8,11 +8,13 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    userService.
+    userService.getAllUsers()
+      .request
   }, [])
 
   return (
     <>
+      {error && <p className="text-danger">{error}</p>}
       <ul>
         {users.map((user) => <li key={user.id} >{user.name}</li>)}
       </ul>
