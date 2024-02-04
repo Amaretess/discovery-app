@@ -8,8 +8,11 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    userService.getAllUsers()
-      .request
+    const { request, cancel } = userService.getAllUsers()
+      .request.then(({ data: allUsers }) => {
+        setUsers(allUsers)
+      })
+      .
   }, [])
 
   return (
