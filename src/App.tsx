@@ -8,13 +8,20 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const { request, cancel } = userService.getAllUsers()
-      .request.then(({ data: allUsers }) => {
-        setUsers(allUsers)
-      })
+
+    setLoading(true);
+
+    const { request, cancel } = userService.getAllUsers();
+    request.then(({ data: allUsers }) => {
+      setUsers(allUsers)
+      setLoading(false);
+    })
       .catch((err) => {
-        setError(err)
+        // haha i solved my bug on accident
+        setError(err.message)
       })
+
+    return () => cancel();
   }, [])
 
   return (
