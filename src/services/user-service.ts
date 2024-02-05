@@ -6,7 +6,7 @@ export interface User {
 }
 class UserService {
     getAllUsers() {
-        const controller = new AbortController()
+        const controller = new AbortController();
 
         const request = apiClient.get<User[]>('/users', { signal: controller.signal });
         return { request, cancel: () => controller.abort() };
