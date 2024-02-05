@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 interface User {
@@ -12,7 +13,7 @@ const App = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-
+    axios.get('')
   }, [])
 
 
