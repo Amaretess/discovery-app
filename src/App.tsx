@@ -18,7 +18,7 @@ const App = () => {
 
     setLoading(true);
 
-    axios.get<User[]>('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
+    axios.get<User[]>('/users', { signal: controller.signal })
       .then(({ data: allUsers }) => {
         setUsers(allUsers)
         setLoading(false)
@@ -34,6 +34,8 @@ const App = () => {
 
   const deleteUser = (user: User) => {
     setUsers(users.filter((u) => u.id !== user.id))
+
+
   }
 
 
