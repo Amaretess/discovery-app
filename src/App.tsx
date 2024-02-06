@@ -30,18 +30,22 @@ const App = () => {
 
     return () => controller.abort()
 
-  }, [])
+  }, []);
+
+  const deleteUser = (id: number) => {
+
+  }
 
 
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
-      <ul className="list-group d-flex justify-content-between" >
+      <ul className="list-group" >
         {users.map((user) => <li className="list-group-item" key={user.id}>
-          {user.name}
-          <div>
-            <button className="btn btn-outline-danger" >delete</button>
+          <div className="d-flex justify-content-between" >
+            {user.name}
+            <button className="btn btn-outline-danger" onChange={() => deleteUser(user.id)}>delete</button>
 
           </div>
         </li>)}
