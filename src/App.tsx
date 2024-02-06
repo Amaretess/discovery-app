@@ -14,6 +14,9 @@ const App = () => {
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/users')
+      .then(({ data: allUsers }) => {
+        setUsers(allUsers)
+      })
 
   }, [])
 
