@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import axios, { CanceledError } from 'axios';
+import { useState, useEffect } from 'react';
 
 interface User {
   id: number;
@@ -18,16 +18,17 @@ const App = () => {
 
     setLoading(true);
 
-    axios.get('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
+    axios.get<User[]>('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
       .then(({ data: allUsers }) => {
         setUsers(allUsers)
         setLoading(false)
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         setError(err.message)
       })
 
-    return controller.abort()
+    return () => controller.abort()
 
   }, [])
 
@@ -36,8 +37,14 @@ const App = () => {
     <>
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
-      <ul>
-        {users.map((user) => <li key={user.id}> {user.name}</li>)}
+      <ul className="list-group d-flex justify-content-between" >
+        {users.map((user) => <li className="list-group-item" key={user.id}>
+          {user.name}
+          <div>
+            <button className="btn btn-outline-danger" >delete</button>
+
+          </div>
+        </li>)}
       </ul>
     </>
   )
