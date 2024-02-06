@@ -1,10 +1,6 @@
 import axios, { CanceledError } from 'axios';
 import { useState, useEffect } from 'react';
 
-interface User {
-  id: number;
-  name: string;
-}
 
 const App = () => {
 
