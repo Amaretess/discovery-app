@@ -1,5 +1,6 @@
 import axios, { CanceledError } from 'axios';
 import { useState, useEffect } from 'react';
+import userService, { User } from './services/user-service';
 
 
 const App = () => {
@@ -10,11 +11,9 @@ const App = () => {
 
   useEffect(() => {
 
-    const controller = new AbortController();
-
     setLoading(true);
 
-    axios.get<User[]>('/users', { signal: controller.signal })
+    const { request, cancel } = userService.getAllUsers()
       .then(({ data: allUsers }) => {
         setUsers(allUsers)
         setLoading(false)
@@ -23,8 +22,6 @@ const App = () => {
         if (err instanceof CanceledError) return;
         setError(err.message)
       })
-
-    return () => controller.abort()
 
   }, []);
 
