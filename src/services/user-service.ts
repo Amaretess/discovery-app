@@ -10,7 +10,7 @@ class UserService {
         const controller = new AbortController();
         const request = apiClient.get<User[]>('/users', { signal: controller.signal })
 
-        return { request, cancel: () => controller.abort() }
+        return { request, cancel: () => controller.abort() };
     }
 }
 // classed based programming; 

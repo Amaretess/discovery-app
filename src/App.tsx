@@ -14,15 +14,15 @@ const App = () => {
     setLoading(true);
 
     const { request, cancel } = userService.getAllUsers()
-      .then(({ data: allUsers }) => {
-        setUsers(allUsers)
-        setLoading(false)
-      })
+    request.then(({ data: allUsers }) => {
+      setUsers(allUsers)
+      setLoading(false)
+    })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message)
       })
-
+    return () => cancel()
   }, []);
 
   const deleteUser = (user: User) => {
