@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 interface User {
   id: number;
@@ -7,11 +8,12 @@ interface User {
 
 const App = () => {
 
-
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/users')
 
   }, [])
 
@@ -19,13 +21,12 @@ const App = () => {
   return (
     <>
       <ul>
-        {users.map(users) => <li>{users.name}</li>}
+        {users.map((user) => {
+          <li>{user.name}</li>
+        })}
       </ul>
     </>
   )
 }
 
-export default App
-
-
-
+export default App;
