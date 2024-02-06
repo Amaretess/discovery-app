@@ -1,4 +1,4 @@
-import axios, { CanceledError } from 'axios';
+import { CanceledError } from 'axios';
 import { useState, useEffect } from 'react';
 import userService, { User } from './services/user-service';
 
@@ -37,13 +37,14 @@ const App = () => {
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
       <ul className="list-group" >
-        {users.map((user) => <li className="list-group-item" key={user.id}>
-          <div className="d-flex justify-content-between" >
-            {user.name}
-            <button className="btn btn-outline-danger" onClick={() => deleteUser(user)}>delete</button>
-
-          </div>
-        </li>)}
+        {users.map((user) =>
+          <li className="list-group-item" key={user.id}>
+            <div className="d-flex justify-content-between" >
+              {user.name}
+              <button className="btn btn-outline-danger" onClick={() => deleteUser(user)}>delete</button>
+            </div>
+          </li>
+        )}
       </ul>
     </>
   )
