@@ -1,5 +1,9 @@
 import axios from "axios";
 
+interface User {
+    id: number;
+    name: string;
+}
 
 
 class UserService {
@@ -11,3 +15,4 @@ class UserService {
 }
 
 export default new UserService();
+

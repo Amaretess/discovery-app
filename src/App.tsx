@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import userService from "./services/user-service";
+
 
 
 
@@ -10,7 +12,10 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    userService.getAllUsers()
+      .response.then((data: allUsers) {
 
+      })
   }, [])
 
 
