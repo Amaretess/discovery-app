@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiClient from "./api-client";
 
 interface User {
     id: number;
@@ -8,7 +9,7 @@ interface User {
 
 class UserService {
     getAllUsers() {
-        const response = axios.get('https://jsonplaceholder.typicode.com/users');
+        const response = apiClient.get('/users');
         const cancel = new AbortController();
         return { response, cancel: cancel.abort() } 
     }
