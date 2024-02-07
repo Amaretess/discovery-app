@@ -17,13 +17,23 @@ const App = () => {
         setUsers(allUsers)
         setLoading(false);
       })
+      .catch((err) => {
+        setError(err.message)
+      })
   }, [])
 
 
   return (
     <>
+      {isLoading && <div className="spinner-border"></div>}
+      {error && <p className="text-danger">{error}</p>}
+      { }
       <ul>
-
+        {users.map((user) => (
+          <li key={user.id} >
+            {user.name}
+          </li>
+        ))}
       </ul>
     </>
   )
