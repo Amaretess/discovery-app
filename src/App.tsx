@@ -1,6 +1,5 @@
-import { CanceledError } from 'axios';
 import { useState, useEffect } from 'react';
-import userService, { User } from './services/user-service';
+import userService, { User, CanceledError } from './services/user-service';
 
 
 const App = () => {
@@ -27,7 +26,6 @@ const App = () => {
 
   const deleteUser = (user: User) => {
     setUsers(users.filter((u) => u.id !== user.id))
-
 
   }
 
