@@ -11,8 +11,12 @@ const App = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     userService.getAllUsers()
-      .response.then()
+      .response.then(({ data: allUsers }) => {
+        setUsers(allUsers)
+        setLoading(false);
+      })
   }, [])
 
 
