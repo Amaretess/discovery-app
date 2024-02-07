@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import userService from "./services/user-service";
-
-
+import { User } from './services/user-service';
 
 
 

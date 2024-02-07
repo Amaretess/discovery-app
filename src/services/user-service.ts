@@ -1,4 +1,3 @@
-import axios from "axios";
 import apiClient from "./api-client";
 
 interface User {
@@ -9,7 +8,7 @@ interface User {
 
 class UserService {
     getAllUsers() {
-        const response = apiClient.get('/users');
+        const response = apiClient.get<User[]>('/users');
         const cancel = new AbortController();
         return { response, cancel: cancel.abort() } 
     }
