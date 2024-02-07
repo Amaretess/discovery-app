@@ -1,6 +1,6 @@
 import apiClient from "./api-client";
 
-interface User {
+export interface User {
     id: number;
     name: string;
 }
@@ -8,9 +8,9 @@ interface User {
 
 class UserService {
     getAllUsers() {
-        const response = apiClient.get<User[]>('/users');
-        const cancel = new AbortController();
-        return { response, cancel: cancel.abort() } 
+        const controller = new AbortController();
+        const response = apiClient.get<User[]>('/users', { signal: .signal} );
+        return { response, cancel: () => controller.abort() } 
     }
 }
 
