@@ -4,4 +4,4 @@ export default axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com/users'
 })
 
-export { CanceledError }  ;
+export { CanceledError }; 
