@@ -1,8 +1,5 @@
-import axios,{ CanceledError }  from "axios";
+import axios from "axios";
 
 export default axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com/users'
-
+    baseURL: ' https://jsonplaceholder.com/users'
 })
-
-export { CanceledError } ;
