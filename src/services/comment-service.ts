@@ -1,13 +1,19 @@
 import apiClient from "./api-client"
 
-interface Comment {
-    
+export interface Comment {
+    id: number;
+    name: string;
+    email: string;
 }
 
-class commentService {
+class CommentService {
     getAllComments() {
-        apiClient.get<Comment[]>('/comments')
+        const controller = new AbortController();
+
+        const request = apiClient.get<Comment[]>('/comments', { signal: controller.signal } )
+        const cancel = controller.abort();
+        return { request, cancel: () => cancel }
     }
 }
 
-export default new commentService()
+export default new CommentService();
