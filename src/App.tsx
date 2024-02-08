@@ -37,10 +37,17 @@ const App = () => {
     userService.updateUser(user);
   }
 
+  const createUser = () => {
+    const newUsers = { ...users, id: 0, name: 'Ashlyn' }
+    setUsers(newUsers)
+    userService.createUser(newUsers)
+  }
+
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
+      <button onClick={() => createUser()} >Add User</button>
       <ul className="list-group">
         {users.map((user) => <li className="list-item d-flex justify-content-between mx-1" key={user.id}>
           {user.name}
