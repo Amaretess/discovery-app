@@ -17,8 +17,8 @@ class userService {
     updateUser(user: User) {
         return apiClient.patch(`/users/${user.id}`, user )
     }
-    createUser(newUsers: User) {
-        return apiClient.put('/users', {newUsers} )
+    createUser(newUser: User) {
+        return apiClient.put('/users', {newUser} )
     }
 }
 

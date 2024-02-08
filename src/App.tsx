@@ -38,9 +38,9 @@ const App = () => {
   }
 
   const createUser = () => {
-    const newUsers = { ...users, id: 0, name: 'Ashlyn' }
-    setUsers(newUsers)
-    userService.createUser(newUsers)
+    const newUser = { id: 0, name: 'Ashlyn' }
+    setUsers([...users, newUser])
+    userService.createUser(newUser)
   }
 
   return (
