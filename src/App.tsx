@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "./services/user-service";
 import userService from "./services/user-service";
+import { CanceledError } from "./services/api-client";
 
 const App = () => {
 
@@ -15,21 +16,32 @@ const App = () => {
       setUsers(allUsers);
       setLoading(false);
     }).catch((err) => {
-      setError(err.message);
+      if (err instanceof CanceledError)
+        setError(err.message);
       setLoading(false);
     })
     return () => cancel();
   }, [])
+
+  const deleteUser = (id: number) => {
+    setUsers(users.filter((u) => {
+      if (u.id !== id) return;
+    }))
+  }
 
   return (
     <>
       {isLoading && <div className="spinner-border"></div>}
       {error && <p className="text-danger">{error}</p>}
       <ul>
-        {users.map((user) => <li key={user.id}>{user.name}</li>)}
+        {users.map((user) => <li key={user.id}>
+          <button onClick={() => deleteUser(user.id)}>Delete</button>
+          <button onClick={() => updateUser()}>Update</button>
+          {user.name}
+        </li>)}
       </ul>
     </>
   )
 }
 
-export default App
+export default App;

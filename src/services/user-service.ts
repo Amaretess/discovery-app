@@ -11,6 +11,9 @@ class userService {
         const request = apiClient.get<User[]>('/users', { signal: controller.signal } );
         return { request, cancel: () => controller.abort() }; 
     }
+    deleteUser(id: number) {
+        return apiClient.delete('./users' + id)
+    }
 }
 
 export default new userService();
