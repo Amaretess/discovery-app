@@ -18,6 +18,8 @@ const App = () => {
         setError(err.message);
         setLoading(false);
       })
+
+
   }, [])
 
   return (
