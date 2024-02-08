@@ -14,8 +14,8 @@ class userService {
     deleteUser(id: number) {
         return apiClient.delete(`./users${id}`)
     }
-    updateUser(id: number) {
-        return apiClient.patch(`/users`, { id } )
+    updateUser(user: User, updatedUser: User) {
+        return apiClient.patch(`/users/${user.id}`, updatedUser )
     }
 }
 

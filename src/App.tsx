@@ -32,7 +32,7 @@ const App = () => {
     const updatedUser = { ...user, name: user.name + '!' }
     // --------------------> if the id of the current user equals the id of the user passed in func return updatedUser
     setUsers(users.map((u) => u.id === user.id ? updatedUser : u))
-
+    userService.updateUser(user, updatedUser);
   }
 
   return (
