@@ -10,16 +10,15 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    userService.getAllUsers()
-      .request.then(({ data: allUsers }) => {
-        setUsers(allUsers);
-        setLoading(false);
-      }).catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      })
-
-
+    const { request, cancel } = userService.getAllUsers()
+    request.then(({ data: allUsers }) => {
+      setUsers(allUsers);
+      setLoading(false);
+    }).catch((err) => {
+      setError(err.message);
+      setLoading(false);
+    })
+    return () => cancel();
   }, [])
 
   return (
