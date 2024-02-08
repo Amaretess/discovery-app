@@ -1,4 +1,4 @@
-import apiClient from "./api-client"
+import apiClient, { CanceledError }  from "./api-client"
 
 export interface Comment {
     id: number;
