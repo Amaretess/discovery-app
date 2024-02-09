@@ -28,10 +28,19 @@ const App = () => {
   }, [])
 
   const deleteUser = (user: User) => {
-    setUsers(user.filter((u) => u.id !== user.id))
-  }
-  const updateUser = () => {
+    // update the UI
+    const originalUsers = [...users]
+    setUsers(users.filter((u) => u.id !== user.id))
 
+    // sending a request to the server
+    userService.deleteUser(user.id)
+      .catch((err) => {
+        setError(err.message)
+        setUsers(originalUsers);
+      })
+  }
+  const updateUser = (user: User) => {
+    userService.updateUser(user)
   }
 
   return (
@@ -43,7 +52,7 @@ const App = () => {
           {user.name}
           <div>
             <button className="btn btn-outline-danger mx-1" onClick={() => deleteUser(user)} >Delete</button>
-            <button className="btn btn-outline-secondary" onClick={() => updateUser()} >Update</button>
+            <button className="btn btn-outline-secondary" onClick={() => updateUser(user)} >Update</button>
           </div>
         </li>)}
       </ul>
