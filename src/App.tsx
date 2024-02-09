@@ -27,8 +27,8 @@ const App = () => {
 
   }, [])
 
-  const deleteUser = () => {
-
+  const deleteUser = (user: User) => {
+    setUsers(user.filter((u) => u.id !== user.id))
   }
   const updateUser = () => {
 
@@ -40,10 +40,9 @@ const App = () => {
       {error && <p className="text-danger">{error}</p>}
       <ul className="list-group" >
         {users.map((user) => <li key={user.id} className="list-group-item d-flex justify-content-between" >
-
           {user.name}
           <div>
-            <button className="btn btn-outline-danger mx-1" onClick={() => deleteUser()} >Delete</button>
+            <button className="btn btn-outline-danger mx-1" onClick={() => deleteUser(user)} >Delete</button>
             <button className="btn btn-outline-secondary" onClick={() => updateUser()} >Update</button>
           </div>
         </li>)}
