@@ -40,6 +40,11 @@ const App = () => {
       })
   }
   const updateUser = (user: User) => {
+
+    const updatedUser = { ...user, name: user.name + '!' }
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
+
+    // call server to save changes
     userService.updateUser(user)
   }
 
