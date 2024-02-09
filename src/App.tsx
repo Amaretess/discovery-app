@@ -1,30 +1,54 @@
 // i am so mad at you but i still love you. It's maddening
 
 import { useEffect, useState } from "react"
-import userService from "./services/user-service";
+import userService, { User } from "./services/user-service";
+import { CanceledError } from "./services/api-client";
 
-interface User {
-  id: number;
-  name: string;
-}
 
 const App = () => {
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    userService.getAllUsers()
-      .request.then((res) => {
-        setUsers(res.data)
+    setLoading(true);
+    const { request, cancel } = userService.getAllUsers()
+    request.then(({ data: allUsers }) => {
+      setUsers(allUsers);
+      setLoading(false);
+    })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setLoading(false);
       })
+    return () => cancel();
+
   }, [])
 
-  return (
-    <div>
+  const deleteUser = () => {
 
-    </div>
+  }
+  const updateUser = () => {
+
+  }
+
+  return (
+    <>
+      {isLoading && <div className="spinner-border"></div>}
+      {error && <p className="text-danger">{error}</p>}
+      <ul className="list-group" >
+        {users.map((user) => <li key={user.id} className="list-group-item d-flex justify-content-between" >
+
+          {user.name}
+          <div>
+            <button className="btn btn-outline-danger mx-1" onClick={() => deleteUser()} >Delete</button>
+            <button className="btn btn-outline-secondary" onClick={() => updateUser()} >Update</button>
+          </div>
+        </li>)}
+      </ul>
+    </>
   )
 }
 
