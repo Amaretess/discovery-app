@@ -1,5 +1,8 @@
 import apiClient from "./api-client";
 
+interface Entity {
+    id: number;
+}
 
 class HttpService {
 
@@ -16,10 +19,12 @@ class HttpService {
         
         return { request, cancel: () => controller.abort() };
     }
-    delete<T>(id: number) {
-        return apiClient.delete(`/users/${id}`)
+    delete<T extends Entity>(entity: T) {
+        return apiClient.delete(this.endpoint + entity.id)
     }
-    update<T>(user: User) {
-        return apiClient.patch(`/users/${user.id}`, user)
+    update<T extends Entity>(entity: T) {
+        return apiClient.patch(this.endpoint + entity.id, entity)
     }
 }
+
+export default new HttpService();
