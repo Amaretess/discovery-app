@@ -19,12 +19,15 @@ class HttpService {
         
         return { request, cancel: () => controller.abort() };
     }
-    delete<T extends Entity>(entity: T) {
-        return apiClient.delete(this.endpoint + entity.id)
+    delete(id: number) {
+        return apiClient.delete(this.endpoint + '/' + id)
     }
     update<T extends Entity>(entity: T) {
         return apiClient.patch(this.endpoint + entity.id, entity)
     }
 }
 
-export default new HttpService();
+
+const create = (endpoint: string) => new HttpService(endpoint);
+
+export default create;

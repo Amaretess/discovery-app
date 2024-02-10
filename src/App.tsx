@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = userService.getAllUsers()
+    const { request, cancel } = userService.getAll<User>()
     request.then(({ data: allUsers }) => {
       setUsers(allUsers);
       setLoading(false);
@@ -33,7 +33,7 @@ const App = () => {
     setUsers(users.filter((u) => u.id !== user.id))
 
     // sending a request to the server
-    userService.deleteUser(user.id)
+    userService.delete(user.id)
       .catch((err) => {
         setError(err.message)
         setUsers(originalUsers);
@@ -45,7 +45,7 @@ const App = () => {
     setUsers(users.map(u => u.id === user.id ? updatedUser : u))
 
     // call server to save changes
-    userService.updateUser(updatedUser)
+    userService.update(updatedUser)
   }
 
   return (
