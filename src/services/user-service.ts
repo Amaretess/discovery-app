@@ -1,8 +1,3 @@
-import create from "./http-service";
-
-export interface User {
-    id: number;
-    name: string;
+class UserService {
+    getAll
 }
-
-export default create('/users');
