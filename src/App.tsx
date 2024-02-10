@@ -34,12 +34,12 @@ const App = () => {
   }, [])
 
   const updateUser = (user: User) => {
-    const updatedUser = { ...user, name: user.name + '!' }
-    setUsers(users.filter((u) => u.id))
+    const updatedUser = [{ ...user, name: user.name + '!' }]
+    setUsers(users.filter(u => u.id === user.id ? updatedUser : user));
   }
 
-  const deleteUser = () => {
-
+  const deleteUser = (user: User) => {
+    setUsers(users.filter(u => u.id !== user.id))
   }
 
   return (
@@ -51,7 +51,7 @@ const App = () => {
           {user.name}
           <div>
             <button onClick={() => updateUser(user)} className='btn btn-outline-secondary' >Update</button>
-            <button onClick={() => deleteUser()} className='btn btn-outline-danger' >Delete</button>
+            <button onClick={() => deleteUser(user)} className='btn btn-outline-danger' >Delete</button>
           </div>
         </li>)}
       </ul>
