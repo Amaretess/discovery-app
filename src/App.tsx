@@ -45,7 +45,7 @@ const App = () => {
     setUsers(users.map(u => u.id === user.id ? updatedUser : u))
 
     // call server to save changes
-    userService.updateUser(user)
+    userService.updateUser(updatedUser)
   }
 
   return (
