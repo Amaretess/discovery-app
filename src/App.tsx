@@ -4,33 +4,16 @@ import { CanceledError } from './services/api-client';
 
 const App = () => {
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const { request, cancel } = userService.getAllUsers()
-    request.then(({ data: allUsers }) => {
-      setUsers(allUsers)
-      setLoading(false);
-    })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      })
-    return () => cancel();
-  }, [])
 
   const deleteUser = (id: number) => {
     setUsers(users.filter((u) => u.id !== id))
-    userService.deleteUser(id)
+    userService.delete(id)
   }
 
   const updateUser = (user: User) => {
     const updatedUser = { ...user, name: user.name + '!' }
     setUsers(users.filter(u => u.id === user.id ? updatedUser : u));
+    userService.update(user);
   }
   const addUser = () => {
 
