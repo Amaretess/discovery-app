@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react'
 import userService, { User } from './services/user-service';
-import { CanceledError } from './services/api-client';
+import useUsers from './hooks/useUsers';
 
 const App = () => {
+
+  const { users, error, isLoading, setUsers, setError } = useUsers();
 
 
   const deleteUser = (id: number) => {
     setUsers(users.filter((u) => u.id !== id))
-    userService.delete(id)
+    userService.delete(id).catch((err) => setError(err.message))
   }
 
   const updateUser = (user: User) => {
     const updatedUser = { ...user, name: user.name + '!' }
     setUsers(users.filter(u => u.id === user.id ? updatedUser : u));
-    userService.update(user);
+    userService.update(user).catch((err) => setError(err.message));
   }
   const addUser = () => {
 

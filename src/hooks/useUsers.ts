@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CanceledError } from "../services/api-client";
+import userService, { User } from "../services/user-service";
 
 const useUsers = () => {
 
@@ -10,18 +12,21 @@ const useUsers = () => {
         setLoading(true);
         const { request, cancel } = userService.getAllUsers()
         request.then(({ data: allUsers }) => {
-          setUsers(allUsers)
-          setLoading(false);
+            setUsers(allUsers)
+            setLoading(false);
         })
-          .catch((err) => {
+        .catch((err) => {
             if (err instanceof CanceledError) return;
             setError(err.message);
             setLoading(false);
-          })
+        })
+
         return () => cancel();
-      }, [])
+    }, [])
+
+    return { users, error, isLoading, setUsers, setError };
 
 
 }
 
-export default useUsers();
+export default useUsers;
