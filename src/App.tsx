@@ -1,14 +1,19 @@
 // glad you beat it ~ wish you the best
 
+import { useState } from "react"
+
 const App = () => {
 
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   return (
 
     <>
-      {error && <p className="text-danger">{error}</p>}
-      {isLoading && <div className="spinner-border"></div>}
-      <button onClick={() => addUser()} className="btn btn-primary m-1" >Add User</button>
+      {<p className="text-danger"></p>}
+      {<div className="spinner-border"></div>}
+      <button className="btn btn-primary m-1" >Add User</button>
       <ul className='list-group '>
 
         <li className='list-group-item d-flex justify-content-between'>
