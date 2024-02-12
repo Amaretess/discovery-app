@@ -40,11 +40,15 @@ const App = () => {
   }
 
   const addUser = () => {
-    const originalUsers = [...users]
+    const originalUsers = [...users];
     const newUser = { id: 0, name: 'Ash' };
     setUsers([newUser, ...users]);
 
     userService.createUser(newUser)
+      .catch((err) => {
+        setError(err.message)
+        setUsers(originalUsers);
+      })
   }
 
   return (

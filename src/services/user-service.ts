@@ -20,7 +20,7 @@ class userService {
         return apiClient.patch('/users/' + user.id, user)
     }
     createUser(user: User) {
-        return apiClient.post('/users/', )
+        return apiClient.post('/users/', user)
     }
 }
 
