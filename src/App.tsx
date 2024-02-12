@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import userService, { User } from './services/user-service';
-import { CanceledError } from './services/api-client';
+import apiClient, { CanceledError } from './services/api-client';
 
 const App = () => {
 
@@ -40,7 +40,11 @@ const App = () => {
   }
 
   const addUser = () => {
-    const newUser = { id: 0, name: 'Ash' }
+    const originalUsers = [...users]
+    const newUser = { id: 0, name: 'Ash' };
+    setUsers([newUser, ...users]);
+
+    userService.createUser(newUser)
   }
 
   return (

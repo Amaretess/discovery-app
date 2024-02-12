@@ -19,6 +19,9 @@ class userService {
     updateUser(user: User) {
         return apiClient.patch('/users/' + user.id, user)
     }
+    createUser(user: User) {
+        return apiClient.post('/users/', )
+    }
 }
 
 export default new userService();
