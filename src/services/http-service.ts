@@ -1,10 +1,14 @@
 import apiClient from "./api-client";
 
-export interface User {
-    id: number;
-    name: string;
-}
-class UserService {
+class HttpService {
+
+    endpoint: string;
+
+    constructor(endpoint: string) {
+        this.endpoint = endpoint;
+    }
+
+
     getAllUsers() {
         const controller = new AbortController();
         const request = apiClient.get('/users', 
@@ -18,5 +22,3 @@ class UserService {
         return apiClient.patch('/users', user)
     }
 }
-
-export default new UserService();
