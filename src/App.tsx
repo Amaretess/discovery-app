@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import userService, { User } from './services/user-service';
+import { CanceledError } from './services/api-client';
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
       setLoading(false);
     })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         setError(err.message);
         setLoading(false);
       })
@@ -23,7 +25,7 @@ const App = () => {
   }, [])
 
   const deleteUser = (id: number) => {
-
+    setUsers(users.filter((u) => u.id !== id))
     userService.deleteUser(id)
   }
 
