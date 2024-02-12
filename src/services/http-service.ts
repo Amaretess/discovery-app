@@ -11,20 +11,20 @@ class HttpService {
 
     getAll<T>() {
         const controller = new AbortController();
-        const request = apiClient.get<T[]>('/users', { signal: controller.signal })
-
+        const request = apiClient.get<T[]>(this.endpoint, 
+            { signal: controller.signal })
         return { request, cancel: () => controller.abort() }
 
     }
     deleteUser(id: number) {
-        return apiClient.delete('/users/' + id)
+        return apiClient.delete(this.endpoint + '/' + id)
     }
     updateUser(user: User) {
-        return apiClient.patch('/users/' + user.id, user)
+        return apiClient.patch(this.endpoint + '/' + user.id, user)
     }
     createUser(user: User) {
-        return apiClient.post('/users/', user)
-    }
+        return apiClient.post(this.endpoint, user)
+    }this.endpoint
 }
 
 export default new HttpService();
