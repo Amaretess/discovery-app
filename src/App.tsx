@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = userService.getAll();
+    const { request, cancel } = userService.getAll<User>();
     request.then(({ data: allUsers }) => {
       setUsers(allUsers)
       setLoading(false);
@@ -29,7 +29,7 @@ const App = () => {
     userService.delete(user.id)
   }
 
-  const update = (user: User) => {
+  const updateUser = (user: User) => {
     const updatedUser = { ...user, name: user.name + '!' }
     setUsers(users.map(u => u.id === user.id ? updatedUser : u));
 
@@ -39,7 +39,7 @@ const App = () => {
       })
   }
 
-  const add = () => {
+  const addUser = () => {
     const originalUsers = [...users];
     const newUser = { id: 0, name: 'Ash' };
     setUsers([newUser, ...users]);
