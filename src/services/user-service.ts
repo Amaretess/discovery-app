@@ -4,17 +4,15 @@ export interface User {
     id: number;
     name: string;
 }
-
 class UserService {
     getAllUsers() {
-
         const controller = new AbortController();
-
         const request = apiClient.get('/users', 
             {signal: controller.signal })
-
         return { request, cancel: () => controller.abort() }
-
+    }
+    deleteUser(id: number) {
+        return apiClient.get('/users' + id)
     }
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import userService from './services/user-service';
+import userService, { User } from './services/user-service';
 
 const App = () => {
 
@@ -20,8 +20,12 @@ const App = () => {
         setLoading(false);
       })
     return () => cancel();
-
   }, [])
+
+  const deleteUser = (id: number) => {
+
+    userService.deleteUser(id)
+  }
 
   return (
 
@@ -33,8 +37,8 @@ const App = () => {
         {users.map((user) => <li className='list-group-item d-flex justify-content-between' key={user.id} >
           {user.name}
           <div >
-            <button className='btn btn-outline-danger mx-1'  >Delete</button>
-            <button className='btn btn-outline-secondary'  >Update</button>
+            <button className='btn btn-outline-danger mx-1' onClick={() => deleteUser(user.id)}>Delete</button>
+            <button className='btn btn-outline-secondary' >Update</button>
           </div>
         </li>)}
 
