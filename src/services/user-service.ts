@@ -13,6 +13,9 @@ class userService {
         return { request, cancel: () => controller.abort() }
 
     }
+    deleteUser(id: number) {
+        apiClient.delete('/users/' + id)
+    }
 }
 
 export default new userService();
