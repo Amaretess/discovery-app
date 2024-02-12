@@ -32,6 +32,8 @@ const App = () => {
   const updateUser = (user: User) => {
     const updatedUser = { ...user, name: user.name + '!' }
     setUsers(users.map(u => u.id === user.id ? updatedUser : u));
+
+    userService.updateUser(updatedUser)
   }
 
   return (
@@ -44,7 +46,7 @@ const App = () => {
           {user.name}
           <div >
             <button className='btn btn-outline-danger mx-1' onClick={() => deleteUser(user)} >Delete</button>
-            <button className='btn btn-outline-secondary' onClick={() => updateUser(user)} >Delete</button>
+            <button className='btn btn-outline-secondary' onClick={() => updateUser(user)} >Update</button>
           </div>
         </li>)}
 

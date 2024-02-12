@@ -16,6 +16,9 @@ class userService {
     deleteUser(id: number) {
         apiClient.delete('/users/' + id)
     }
+    updateUser(user: User) {
+        apiClient.patch('/users/' + user.id, user)
+    }
 }
 
 export default new userService();
