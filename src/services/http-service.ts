@@ -16,13 +16,13 @@ class HttpService {
         return { request, cancel: () => controller.abort() }
 
     }
-    deleteUser(id: number) {
+    delete(id: number) {
         return apiClient.delete(this.endpoint + '/' + id)
     }
-    updateUser(user: User) {
+    update(user: User) {
         return apiClient.patch(this.endpoint + '/' + user.id, user)
     }
-    createUser(user: User) {
+    create(user: User) {
         return apiClient.post(this.endpoint, user)
     }this.endpoint
 }
