@@ -1,26 +1,7 @@
-// finally ready to start my project tmmw
-
-import userService, { User } from './services/user-service';
-import useUsers from './hooks/useUsers';
+// glad you beat it ~ wish you the best
 
 const App = () => {
 
-  const { users, error, isLoading, setUsers, setError } = useUsers();
-
-
-  const deleteUser = (id: number) => {
-    setUsers(users.filter((u) => u.id !== id))
-    userService.delete(id).catch((err) => setError(err.message))
-  }
-
-  const updateUser = (user: User) => {
-    const updatedUser = { ...user, name: user.name + '!' }
-    setUsers(users.filter(u => u.id === user.id ? updatedUser : u));
-    userService.update(user).catch((err) => setError(err.message));
-  }
-  const addUser = () => {
-
-  }
 
   return (
 
@@ -29,13 +10,13 @@ const App = () => {
       {isLoading && <div className="spinner-border"></div>}
       <button onClick={() => addUser()} className="btn btn-primary m-1" >Add User</button>
       <ul className='list-group '>
-        {users.map((user) => <li className='list-group-item d-flex justify-content-between' key={user.id} >
-          {user.name}
+
+        <li className='list-group-item d-flex justify-content-between'>
           <div >
-            <button className='btn btn-outline-danger mx-1' onClick={() => deleteUser(user.id)}>Delete</button>
-            <button className='btn btn-outline-secondary' onClick={() => updateUser(user)} >Update</button>
+            <button className='btn btn-outline-danger mx-1' >Delete</button>
+            <button className='btn btn-outline-secondary' >Update</button>
           </div>
-        </li>)}
+        </li>
 
       </ul>
     </>
