@@ -34,6 +34,13 @@ const App = () => {
     setUsers(users.map(u => u.id === user.id ? updatedUser : u));
 
     userService.updateUser(updatedUser)
+      .catch((err) => {
+        setError(err.message);
+      })
+  }
+
+  const addUser = () => {
+    const newUser = { id: 0, name: 'Ash' }
   }
 
   return (
@@ -41,7 +48,8 @@ const App = () => {
     <>
       {error && <p className="text-danger">{error}</p>}
       {isLoading && <div className="spinner-border"></div>}
-      <ul className='list-group'>
+      <button className="btn btn-primary m-1" onClick={() => addUser()} >Add User</button>
+      <ul className='list-group '>
         {users.map((user) => <li className='list-group-item d-flex justify-content-between' key={user.id} >
           {user.name}
           <div >

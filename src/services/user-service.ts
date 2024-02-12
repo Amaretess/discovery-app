@@ -14,10 +14,10 @@ class userService {
 
     }
     deleteUser(id: number) {
-        apiClient.delete('/users/' + id)
+        return apiClient.delete('/users/' + id)
     }
     updateUser(user: User) {
-        apiClient.patch('/users/' + user.id, user)
+        return apiClient.patch('/users/' + user.id, user)
     }
 }
 
