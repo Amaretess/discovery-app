@@ -29,6 +29,11 @@ const App = () => {
     userService.deleteUser(user.id)
   }
 
+  const updateUser = (user: User) => {
+    const updatedUser = { ...user, name: user.name + '!' }
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u));
+  }
+
   return (
 
     <>
@@ -38,7 +43,8 @@ const App = () => {
         {users.map((user) => <li className='list-group-item d-flex justify-content-between' key={user.id} >
           {user.name}
           <div >
-            <button className='btn btn-outline-danger' onClick={() => deleteUser(user)} >Delete</button>
+            <button className='btn btn-outline-danger mx-1' onClick={() => deleteUser(user)} >Delete</button>
+            <button className='btn btn-outline-secondary' onClick={() => updateUser(user)} >Delete</button>
           </div>
         </li>)}
 
