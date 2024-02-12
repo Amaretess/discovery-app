@@ -12,7 +12,7 @@ class UserService {
         return { request, cancel: () => controller.abort() }
     }
     deleteUser(id: number) {
-        return apiClient.get('/users' + id)
+        return apiClient.delete('/users/' + id)
     }
 }
 
