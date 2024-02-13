@@ -6,7 +6,7 @@ import { CanceledError } from "./services/api-client";
 
 const App = () => {
 
-  const [users, setUsers] = useState<User[]>();
+  const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
@@ -24,6 +24,8 @@ const App = () => {
       })
     return () => cancel()
   }, [])
+
+  console.log(users)
 
   return (
 
