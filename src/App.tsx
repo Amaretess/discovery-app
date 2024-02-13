@@ -1,49 +1,22 @@
-// it's always the same, "my ex taught me"
+import { useEffect, useState } from "react"
 
-import useUsers from "./hooks/useUsers";
-import userService, { User } from "./services/user-service";
 
 const App = () => {
 
-  const { users, error, isLoading, setUsers, setError } = useUsers();
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
-  // these funcs specific to component
-  const updateUser = (user: User) => {
-    const originalUsers = [...users]
-    const updatedUser = { ...user, id: 0, name: user.name + '!' }
-    setUsers(users.map((u) => u.id === user.id ? updatedUser : u))
+  useEffect(() => {
 
-    userService.update(updatedUser).catch((err) => {
-      setError(err.message);
-      setUsers(originalUsers);
-    })
-  }
-
-  const deleteUser = (id: number) => {
-    const originalUsers = [...users]
-    setUsers(users.filter((u) => u.id !== id))
-    userService.delete(id).catch((err) => {
-      setError(err.message);
-      setUsers(originalUsers);
-    })
-  }
+  }, [])
 
   return (
-
     <>
-      {error && <p className="text-danger">{error}</p>}
-      {isLoading && <div className="spinner-border"></div>}
-      <button className="btn btn-primary m-1" >Add User</button>
-      <ul className="list-group">
-        {users.map((user) => <li className="list-group-item d-flex justify-content-between" key={user.id}>
-          {user.name}
-          <div>
-            <button onClick={() => updateUser(user)} className="btn btn-outline-secondary mx-1" >Update</button>
-            <button onClick={() => deleteUser(user.id)} className="btn btn-outline-danger" >Delete</button>
-          </div>
-        </li>)}
-
+      <ul>
+        {users.map(user => <li></li>)}
       </ul>
+
     </>
   )
 }
