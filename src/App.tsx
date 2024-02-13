@@ -25,8 +25,6 @@ const App = () => {
     return () => cancel()
   }, [])
 
-  console.log(users)
-
   return (
 
     <>
@@ -34,6 +32,9 @@ const App = () => {
       {isLoading && <div className="spinner-border"></div>}
       <button className="btn btn-primary m-1" >Add User</button>
       <ul>
+        {users.map((user) => <li>
+          <li>{user.name}</li>
+        </li>)}
 
       </ul>
     </>
