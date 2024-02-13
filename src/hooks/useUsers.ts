@@ -25,4 +25,4 @@ const useUsers = () => {
     return {users, error, isLoading, setUsers, setError }
 }
 
-export default useUsers
+export default useUsers;

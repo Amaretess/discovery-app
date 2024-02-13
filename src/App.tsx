@@ -1,11 +1,10 @@
 // glad you beat it ~ wish you the best
 
-import { useEffect, useState } from "react"
-import userService, { User } from "./services/user-service";
-import { CanceledError } from "./services/api-client";
+import useUsers from "./hooks/useUsers";
 
 const App = () => {
 
+  const { users, error, isLoading, setUsers, setError } = useUsers();
 
   // these funcs specific to component
   const updateUser = () => {
