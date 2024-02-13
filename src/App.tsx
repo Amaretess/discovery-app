@@ -9,15 +9,23 @@ const App = () => {
 
   // these funcs specific to component
   const updateUser = (user: User) => {
+    const originalUsers = [...users]
     const updatedUser = { ...user, id: 0, name: user.name + '!' }
     setUsers(users.map((u) => u.id === user.id ? updatedUser : u))
-    userService.update(user)
 
+    userService.update(updatedUser).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    })
   }
 
   const deleteUser = (id: number) => {
+    const originalUsers = [...users]
     setUsers(users.filter((u) => u.id !== id))
-    userService.delete(id)
+    userService.delete(id).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers);
+    })
   }
 
   return (
