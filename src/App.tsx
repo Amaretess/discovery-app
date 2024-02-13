@@ -1,4 +1,4 @@
-// glad you beat it ~ wish you the best
+// it's always the same, "my ex taught me"
 
 import useUsers from "./hooks/useUsers";
 
