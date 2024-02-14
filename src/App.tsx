@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import userService, { User } from "./services/user-service"
+import { CanceledError } from "axios";
 
 
 
@@ -16,6 +17,7 @@ const App = () => {
       setUsers(allUsers);
       setLoading(false);
     }).catch((err) => {
+      if (err instanceof CanceledError) return;
       setError(err.message)
       setLoading(false);
     })
@@ -34,6 +36,8 @@ const App = () => {
 
   return (
     <>
+      { }
+      {error && <p className="text-danger" >{error}</p>}
       <ul className="list-group">
         {users.map((user) => (
           <li className="list-group-item d-flex justify-content-between" key={user.id}>
