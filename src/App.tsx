@@ -25,7 +25,9 @@ const App = () => {
   }, [])
 
   const updateUser = (user: User) {
-
+    const updatedUser = { ...user, name: user.name + '!' }
+    // writing this function looks weird at first, compiler figures it out
+    setUsers(users.map(u => u.id === user.id ? updatedUser : u))
   }
 
   const deleteUser = (id: number) {
