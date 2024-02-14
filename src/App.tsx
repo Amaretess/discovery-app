@@ -24,29 +24,29 @@ const App = () => {
     return () => cancel();
   }, [])
 
-  const updateUser = (user: User) {
+  const updateUser = (user: User) => {
     const updatedUser = { ...user, name: user.name + '!' }
     // writing this function looks weird at first, compiler figures it out
     setUsers(users.map(u => u.id === user.id ? updatedUser : u))
   }
 
-  const deleteUser = (id: number) {
-
+  const deleteUser = (id: number) => {
+    setUsers(users.filter(u => u.id !== id));
   }
 
 
 
   return (
     <>
-      { }
+      {isLoading && <div className="spinner-border" ></div>}
       {error && <p className="text-danger" >{error}</p>}
       <ul className="list-group">
         {users.map((user) => (
           <li className="list-group-item d-flex justify-content-between" key={user.id}>
             {user.name}
             <div>
-              <button onClick={() => updateUser(user)} >update</button>
-              <button onClick={() => deleteUser(user.id)} >delete</button>
+              <button className="btn btn-outline-secondary" onClick={() => updateUser(user)} >update</button>
+              <button className="btn btn-outline-danger" onClick={() => deleteUser(user.id)} >delete</button>
             </div>
           </li>
         ))}
