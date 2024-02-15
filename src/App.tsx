@@ -29,6 +29,8 @@ const App = () => {
 
   }
 
+  // git push to practice
+
   return (
     <>
       {error && <p className="text-danger">{error}</p>}
