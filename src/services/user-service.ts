@@ -5,8 +5,4 @@ export interface User {
     name: string;
 }
 
-class UserService {
-
-}
-
 export default create('/users');
