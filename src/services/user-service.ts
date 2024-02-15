@@ -1,4 +1,4 @@
-import apiClient from "./api-client";
+import create from "./http-service";
 
 export interface User {
     id: number;
@@ -6,6 +6,7 @@ export interface User {
 }
 
 class UserService {
+
 }
 
-export default new UserService();
+export default create('/users');
