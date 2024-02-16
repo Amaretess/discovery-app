@@ -19,15 +19,23 @@ const App = () => {
       setError(err.message);
       setLoading(false);
     })
+    return () => cancel();
   }, [])
 
   const updateUser = () => {
 
   }
 
-  const deleteUser = () => {
-
+  const deleteUser = (id: number) => {
+    const originalUsers = [...users];
+    setUsers(users.filter(u => u.id !== id))
+    userService.delete(id).catch((err) => {
+      setError(err.message);
+      setUsers(originalUsers)
+    })
   }
+
+  // git push to practice
 
   return (
     <>
@@ -39,7 +47,7 @@ const App = () => {
             {user.name}
             <div>
               <button className="btn btn-outline-secondary" onClick={() => updateUser()} >Update</button>
-              <button className="btn btn-outline-danger" onClick={() => deleteUser()} >Delete</button>
+              <button className="btn btn-outline-danger" onClick={() => deleteUser(user.id)} >Delete</button>
             </div>
           </li>
         ))}
